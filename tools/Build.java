@@ -36,7 +36,7 @@ class Build {
       if (process.waitFor() != 0) throw new IOException("Test suite failed");
     } else {
       Files.createDirectories(Path.of("dist"));
-      Path target = Path.of("dist/rudy-flightdeck-0.1.0-preview.jar");
+      Path target = Path.of("dist/rudy-flightdeck-0.1.1-preview.jar");
       Manifest manifest = new Manifest(); manifest.getMainAttributes().putValue("Manifest-Version", "1.0"); manifest.getMainAttributes().putValue("Main-Class", "dev.rudy.flightdeck.Main");
       try (var jar = new JarOutputStream(Files.newOutputStream(target, StandardOpenOption.CREATE_NEW)); var files = Files.walk(Path.of("build/classes"))) {
         var manifestEntry = new JarEntry("META-INF/MANIFEST.MF"); manifestEntry.setTime(0);

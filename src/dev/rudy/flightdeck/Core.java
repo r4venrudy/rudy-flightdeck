@@ -7,7 +7,7 @@ import java.util.*;
 
 /** Streaming aggregation, independent of the JFR decoder and report renderers. */
 final class Core {
-  static final String VERSION = "0.1.0-preview";
+  static final String VERSION = "0.1.1-preview";
   enum Kind { CPU, NATIVE, ALLOCATION, MONITOR, PARK, FILE_READ, FILE_WRITE, SOCKET_READ, SOCKET_WRITE, GC_PAUSE, EXCEPTION, PROCESS }
   record Limits(long fileBytes, long events, int groups, int stackDepth, int intervals) {
     static Limits defaults() { return new Limits(512L * 1024 * 1024, 2_000_000, 100_000, 128, 100_000); }

@@ -68,7 +68,7 @@ public final class CaptureDemo {
     }
   }
   public static void main(String[] args) throws Exception {
-    if (args.length != 1) throw new IllegalArgumentException("usage: java examples/CaptureDemo.java NEW_RECORDING.jfr");
+    if (args.length != 1) throw new IllegalArgumentException("usage: java examples/dev/rudy/flightdeck/CaptureDemo.java NEW_RECORDING.jfr");
     capture(Path.of(args[0]), 130);
     System.out.println("Created synthetic recording: " + Path.of(args[0]).getFileName());
   }

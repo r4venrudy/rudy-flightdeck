@@ -1,5 +1,7 @@
 Rudy Flightdeck is an offline Java Flight Recorder investigation engine with a Java 21+ core and no downloaded runtime dependencies.
 
+This patch preview corrects the synthetic example's package directory so the documented Java source-file command works with Java 21 and 25. A standalone source-launch regression now runs in every CI matrix job.
+
 - Weighted Java/native/allocation stack profiles and Speedscope export.
 - Thread/resource I/O and wait aggregates, historical monitor-owner edges, and unioned top-level GC pauses.
 - Paired-recording rate/sample-mix comparison, explicit capture coverage, data-loss status, and optional warning gates.

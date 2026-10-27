@@ -25,4 +25,4 @@ jobs:
       - run: java tools/Build.java test
       - run: python tools/verify_reports.py build/examples
       - run: java tools/Build.java package
-      - run: java -jar dist/rudy-flightdeck-0.1.0-preview.jar --version
+      - run: java -jar dist/rudy-flightdeck-0.1.1-preview.jar --version

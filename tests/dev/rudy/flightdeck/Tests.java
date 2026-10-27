@@ -124,6 +124,16 @@ public final class Tests {
     check(JfrInput.token("/private/example",true).equals("/private/example"),"sensitive mode explicit");
   }
   static int command(String... args) { return Main.run(args,new PrintStream(new ByteArrayOutputStream(),true,StandardCharsets.UTF_8),new PrintStream(new ByteArrayOutputStream(),true,StandardCharsets.UTF_8)); }
+  static void standaloneExample(Path directory) throws Exception {
+    Path fixture=directory.resolve("standalone.jfr"), log=directory.resolve("source-launch.log");
+    String javaExecutable=Path.of(System.getProperty("java.home"),"bin",System.getProperty("os.name").startsWith("Windows")?"java.exe":"java").toString();
+    var process=new ProcessBuilder(javaExecutable,"-Xmx256m","examples/dev/rudy/flightdeck/CaptureDemo.java",fixture.toString())
+        .redirectErrorStream(true).redirectOutput(log.toFile()).start();
+    if(!process.waitFor(30,java.util.concurrent.TimeUnit.SECONDS)){process.destroyForcibly();throw new AssertionError("Standalone example timed out");}
+    check(process.exitValue()==0,"packaged-layout source launcher: "+Files.readString(log));
+    check(Files.isRegularFile(fixture)&&Files.size(fixture)>0,"standalone example creates a recording");
+    check(JfrInput.read(fixture,Limits.defaults(),false).recognized>0,"standalone example recording analyzes");
+  }
   static void integration(Path dir) throws Exception {
     Path fixture=dir.resolve("demo.jfr"); CaptureDemo.capture(fixture,130);
     var a=JfrInput.read(fixture,Limits.defaults(),false);
@@ -166,7 +176,7 @@ public final class Tests {
   }
   public static void main(String[] args) throws Exception {
     Path directory=Files.createTempDirectory("flightdeck-tests-");
-    try { statistics(); intervals(); limits(); aggregation(); reports(); integration(directory); }
+    try { statistics(); intervals(); limits(); aggregation(); reports(); integration(directory); standaloneExample(directory); }
     finally { try(var files=Files.walk(directory)) { for(Path path:files.sorted(Comparator.reverseOrder()).toList()) Files.deleteIfExists(path); } }
     System.out.println("Rudy Flightdeck: "+checks+" checks passed (including real JFR and loopback fixtures)");
   }

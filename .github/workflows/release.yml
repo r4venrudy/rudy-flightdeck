@@ -24,17 +24,17 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test "$(java -jar dist/rudy-flightdeck-0.1.0-preview.jar --version)" = "flightdeck ${GITHUB_REF_NAME#v}"
-          root=build/rudy-flightdeck-0.1.0-preview
+          test "$(java -jar dist/rudy-flightdeck-0.1.1-preview.jar --version)" = "flightdeck ${GITHUB_REF_NAME#v}"
+          root=build/rudy-flightdeck-0.1.1-preview
           mkdir -p "$root/lib"
-          cp dist/rudy-flightdeck-0.1.0-preview.jar "$root/lib/"
+          cp dist/rudy-flightdeck-0.1.1-preview.jar "$root/lib/"
           cp README.md LICENSE SECURITY.md CONTRIBUTING.md "$root/"
           cp -R docs examples assets bin "$root/"
           chmod +x "$root/bin/flightdeck"
           "$root/bin/flightdeck" --version
-          (cd build && zip -qr ../dist/rudy-flightdeck-0.1.0-preview.zip rudy-flightdeck-0.1.0-preview)
-          tar -czf dist/rudy-flightdeck-0.1.0-preview.tar.gz -C build rudy-flightdeck-0.1.0-preview
-          (cd dist && sha256sum rudy-flightdeck-0.1.0-preview.jar rudy-flightdeck-0.1.0-preview.zip rudy-flightdeck-0.1.0-preview.tar.gz > SHA256SUMS.txt)
+          (cd build && zip -qr ../dist/rudy-flightdeck-0.1.1-preview.zip rudy-flightdeck-0.1.1-preview)
+          tar -czf dist/rudy-flightdeck-0.1.1-preview.tar.gz -C build rudy-flightdeck-0.1.1-preview
+          (cd dist && sha256sum rudy-flightdeck-0.1.1-preview.jar rudy-flightdeck-0.1.1-preview.zip rudy-flightdeck-0.1.1-preview.tar.gz > SHA256SUMS.txt)
       - name: Publish tested preview
         env:
           GH_TOKEN: ${{ github.token }}

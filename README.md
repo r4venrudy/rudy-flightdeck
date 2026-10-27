@@ -41,7 +41,7 @@ bin/flightdeck compare baseline.jfr candidate.jfr --format html --output compari
 On Windows, use `bin\flightdeck.cmd`. The launchers use `JAVA_HOME` when configured and cap the JVM heap at 1 GiB. A direct JAR invocation works too:
 
 ```sh
-java -Xmx1g -jar lib/rudy-flightdeck-0.1.0-preview.jar analyze service.jfr --format json
+java -Xmx1g -jar lib/rudy-flightdeck-0.1.1-preview.jar analyze service.jfr --format json
 ```
 
 The HTML report opens locally without a server or external scripts. Speedscope files can be opened in a local or separately chosen Speedscope installation; Flightdeck never uploads them.
@@ -51,7 +51,7 @@ The HTML report opens locally without a server or external scripts. Speedscope f
 From the source checkout, create a small synthetic workload recording:
 
 ```sh
-java examples/CaptureDemo.java demo.jfr
+java examples/dev/rudy/flightdeck/CaptureDemo.java demo.jfr
 java -cp build/classes dev.rudy.flightdeck.Main analyze demo.jfr --format html --output demo.html
 ```
 
@@ -66,7 +66,7 @@ Requirements: Java 21+ **JDK**. No Maven, Gradle, downloaded Java dependencies, 
 ```sh
 java tools/Build.java test
 java tools/Build.java package
-java -jar dist/rudy-flightdeck-0.1.0-preview.jar --version
+java -jar dist/rudy-flightdeck-0.1.1-preview.jar --version
 ```
 
 The build compiles with `--release 21 -Xlint:all -Werror`. The test suite combines deterministic aggregation/limit/format regressions with a real JDK-produced recording and local loopback fixtures. It creates illustrative reports under `build/examples/`. The Python standard-library helper `tools/verify_reports.py` optionally checks JSON and Speedscope export invariants independently; Python is not a tool runtime or build dependency.
