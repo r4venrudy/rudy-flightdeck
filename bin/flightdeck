@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+flightdeck_dir=$(dirname "$0")
+if [ -n "${JAVA_HOME:-}" ]; then
+  exec "$JAVA_HOME/bin/java" -Xmx1g -jar "$flightdeck_dir/../lib/rudy-flightdeck-0.1.0-preview.jar" "$@"
+fi
+exec java -Xmx1g -jar "$flightdeck_dir/../lib/rudy-flightdeck-0.1.0-preview.jar" "$@"
